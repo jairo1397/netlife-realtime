@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Partido - Netlife</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Visualización de Resultados</h1>
+    
+    <div class="templates-wrapper">
+        <!-- Plantilla Horizontal -->
+        <div class="template-box horizontal">
+            <img src="assets/HORIZONTAL 768X320.png" class="bg-img" alt="Horizontal">
+            
+            <div class="scoreboard" id="scoreboard-hor" style="display: none;">
+                <div class="team">
+                    <img id="home-logo-hor" src="" alt="Local">
+                    <div id="home-name-hor" class="team-name"></div>
+                </div>
+                
+                <div class="score">
+                    <span id="home-score-hor">-</span>
+                    <span class="divider">-</span>
+                    <span id="away-score-hor">-</span>
+                </div>
+                
+                <div class="team">
+                    <img id="away-logo-hor" src="" alt="Visitante">
+                    <div id="away-name-hor" class="team-name"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plantilla Vertical -->
+        <div class="template-box vertical">
+            <img src="assets/VERTICAL 600X810.png" class="bg-img" alt="Vertical">
+            
+            <div class="scoreboard" id="scoreboard-ver" style="display: none;">
+                <div class="team">
+                    <img id="home-logo-ver" src="" alt="Local">
+                    <div id="home-name-ver" class="team-name"></div>
+                </div>
+                
+                <div class="score">
+                    <span id="home-score-ver">-</span>
+                    <span class="divider">-</span>
+                    <span id="away-score-ver">-</span>
+                </div>
+                
+                <div class="team">
+                    <img id="away-logo-ver" src="" alt="Visitante">
+                    <div id="away-name-ver" class="team-name"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
