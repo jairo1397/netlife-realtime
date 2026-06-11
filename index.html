@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    <div id="loading-overlay"></div>
     <h1>Visualización de Resultados</h1>
     
     <div class="templates-wrapper">
@@ -59,6 +59,39 @@
         </div>
     </div>
 
+    <script>
+        window.appDataLoaded = false;
+        let fontsLoadedFlag = false;
+
+        document.fonts.ready.then(() => {
+            fontsLoadedFlag = true;
+            if (typeof window.checkAllLoaded === 'function') {
+                window.checkAllLoaded();
+            }
+        });
+
+        window.checkAllLoaded = function() {
+            if (window.appDataLoaded && fontsLoadedFlag) {
+                // Dar tiempo al navegador para renderizar las imágenes y fuentes
+                setTimeout(() => {
+                    const loadingOverlay = document.getElementById('loading-overlay');
+                    if (loadingOverlay) {
+                        loadingOverlay.style.opacity = '0';
+                        setTimeout(() => { loadingOverlay.style.display = 'none'; }, 500);
+                    }
+                }, 100);
+            }
+        };
+
+        // Fallback: si después de 10 segundos algo falla en cargar, quitar la pantalla de carga
+        setTimeout(() => {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            if (loadingOverlay && loadingOverlay.style.display !== 'none') {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => { loadingOverlay.style.display = 'none'; }, 500);
+            }
+        }, 10000);
+    </script>
     <script src="app.js"></script>
 </body>
 </html>

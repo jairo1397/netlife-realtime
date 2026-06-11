@@ -107,11 +107,51 @@ class MatchDisplayManager {
                 }
                 
                 this.startPolling();
+
+                // --- PANTALLA NEGRA DE CARGA ---
+                let homeImgLoaded = !homeLogoUrl;
+                let awayImgLoaded = !awayLogoUrl;
+
+                const finishDataLoad = () => {
+                    if (homeImgLoaded && awayImgLoaded) {
+                        window.appDataLoaded = true;
+                        if (typeof window.checkAllLoaded === 'function') {
+                            window.checkAllLoaded();
+                        }
+                    }
+                };
+
+                const checkImgLoad = (imgElement, setLoadedFlag) => {
+                    if (!imgElement) {
+                        setLoadedFlag();
+                        return;
+                    }
+                    if (imgElement.complete) {
+                        setLoadedFlag();
+                    } else {
+                        imgElement.onload = () => { setLoadedFlag(); finishDataLoad(); };
+                        imgElement.onerror = () => { setLoadedFlag(); finishDataLoad(); };
+                    }
+                };
+
+                if (homeLogoUrl) {
+                    // Check horizontal image (vertical is usually the same URL so it will be cached/fast)
+                    checkImgLoad(this.hor.homeLogo, () => { homeImgLoaded = true; });
+                }
+                if (awayLogoUrl) {
+                    checkImgLoad(this.hor.awayLogo, () => { awayImgLoaded = true; });
+                }
+                finishDataLoad();
+
             } else {
                 console.error("No se encontró el partido con fixture_id:", this.fixtureId);
+                window.appDataLoaded = true;
+                if (typeof window.checkAllLoaded === 'function') window.checkAllLoaded();
             }
         } catch (error) {
             console.error(`Error al consultar el partido inicial ${this.fixtureId}:`, error);
+            window.appDataLoaded = true;
+            if (typeof window.checkAllLoaded === 'function') window.checkAllLoaded();
         }
     }
 
